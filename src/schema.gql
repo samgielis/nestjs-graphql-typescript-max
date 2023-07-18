@@ -1,0 +1,93 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type ActionItem implements Node {
+  id: ID!
+  leftIcon: Icon
+  rightIcon: Icon
+  title: String
+}
+
+type DesignSystemIcon implements Icon {
+  """Representation of the Icon in an active state"""
+  activeValue: IconValue!
+  type: IconType!
+
+  """Default representation of the Icon """
+  value: IconValue!
+}
+
+type DesignSystemIconValue {
+  """Key of the icon in the design system."""
+  name: String!
+}
+
+interface Icon {
+  """Representation of the Icon in an active state"""
+  activeValue: IconValue!
+  type: IconType!
+
+  """Default representation of the Icon """
+  value: IconValue!
+}
+
+"""The type of Icon"""
+enum IconType {
+  DESIGN_SYSTEM
+  IMAGE
+}
+
+union IconValue = DesignSystemIconValue | ImageIconValue
+
+type ImageIcon implements Icon {
+  """Representation of the Icon in an active state"""
+  activeValue: IconValue!
+  type: IconType!
+
+  """Default representation of the Icon """
+  value: IconValue!
+}
+
+type ImageIconValue {
+  """Location of the icon's image file"""
+  url: String!
+}
+
+"""Main Navigation of the app"""
+type Navigation implements Node {
+  id: ID!
+  nodes: [NavigationNode!]!
+  theme: NavigationTheme!
+}
+
+interface NavigationCompositeNode implements NavigationNode & Node {
+  content: ActionItem
+  id: ID!
+  nodes: [NavigationNode!]!
+}
+
+interface NavigationLeafNode implements NavigationNode & Node {
+  content: ActionItem!
+  id: ID!
+}
+
+interface NavigationNode implements Node {
+  content: ActionItem
+  id: ID!
+}
+
+"""The theme of the application"""
+enum NavigationTheme {
+  default
+  ketnet
+  ketnetJunior
+}
+
+interface Node {
+  id: ID!
+}
+
+type Query {
+  navigation: Navigation!
+}
